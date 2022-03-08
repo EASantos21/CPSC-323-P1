@@ -13,10 +13,20 @@ RESERVED_WORDS = ["cout<<", "for", "int", "while"]
 SPECIAL = ["<", "=" , "*" , "-" , ";" , "(" , ")" , "<=" ,"+", ","]
 DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 if __name__ == "__main__":
-    source = input("Enter statement: ")
-    source = source.split()
-    for i in source:
-        if i in RESERVED_WORDS:
-            print("RESERVED WORD: ", i)
-        elif i in SPECIAL:
-            print("SPECIAL: ", i)
+    loopInput = 0
+    
+    while loopInput != 1:
+        source = input("Enter statement: ")
+        source = source.split()
+        for i in source:
+            if i in RESERVED_WORDS:
+                print("RESERVED WORD: ", i)
+            elif i in SPECIAL:
+                print("SPECIAL: ", i)
+            elif i.isdigit() or i.startswith('-') and i[1:].isdigit():
+                print("INTEGER: ", i)
+            else:
+                print("IDENTIFIER: ", i)
+        
+        if(input("Continue? Y/N") == 'N'):
+            loopInput = 1

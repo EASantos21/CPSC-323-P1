@@ -18,4 +18,4 @@ t=            num2   +   num3; //compute sum
 t      =      t+num1;  //compute new value for tl
 
 
-cout<<     t      ; 
+cout<<     t      ; //declare variables

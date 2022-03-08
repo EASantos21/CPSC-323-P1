@@ -11,27 +11,33 @@ DATATYPES = ['int']
 OPERATORS = [',', ';', '=', '+','/']
 INTEGERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 COMMENTS = '//'
-tokens = []
-def analyze(sourceCode):
-    for i in sourceCode:
-        # Will check if i is a datatype
-        if i in DATATYPES:
-            tokens.append(['DATATYPE', i])
-        elif i in OPERATORS:
-            tokens.append(['OPERATOR', i])
-        elif i in INTEGERS:
-            tokens.append(['INTEGER', i])
-        elif COMMENTS in i:
-            tokens.append(['COMMENT', i])
-        else:
-            tokens.append(['IDENTIFIER', i])
-    print(tokens)
+
+def writeToFile():
+    # Opening newdata file to write to
+    newFile = open('newdata.txt', 'r+')
+
+    # Defining lists to keep track of the strings we plan to change
+    newLines = []
+    newFileLines = []
+
+    with open('data.txt', 'r+') as file:
+        # Deleting comments and unnecessary space
+        for line in file:
+            if not line.isspace():
+                if COMMENTS not in line:
+                    newLines.append(line)
+                else:
+                    currentLine = line.split(COMMENTS)[0]
+                    newLines.append(currentLine + "\n")
+        
+        # Deleting space inbetween words/characters
+        for i in newLines:
+            if not i.isspace():
+                newFileLines.append(''.join(i.split()))
+        
+        # Writing to newdata.txt
+        for i in newFileLines:
+            newFile.write(i + "\n")
 
 if __name__ == "__main__":
-    # Reading in input txt, assigning contents to a string, and splitting the string
-    with open('data.txt', 'r') as file:
-        sourceCode = file.read().rstrip()
-
-    sourceCode = sourceCode.split()
-
-    analyze(sourceCode)
+    writeToFile()
